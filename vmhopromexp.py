@@ -9,6 +9,10 @@
 import sys
 import getopt
 
+def connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password):
+    print("Connexion au serveur : "+horizon_endpoint+" "+horizon_user+"/"+horizon_password)
+
+
 def main(argv):
 
     horizon_endpoint=""
@@ -31,8 +35,3 @@ def main(argv):
     connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password)
 
 main(sys.argv[1:])
-
-def connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password):
-    print("Connexion au serveur : "+horizon_endpoint+" "+horizon_user+"/"+horizon_password)
-
-    
