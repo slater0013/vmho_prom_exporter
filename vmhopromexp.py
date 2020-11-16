@@ -18,11 +18,12 @@ def main(argv):
     horizon_endpoint=""
     horizon_user=""
     horizon_password=""
+    usage='Usage : vmhopromexp.py --horizon_endpoint="https://horizon_endpoint.fqdn/" --horizon_user="user@vspehere_domain" --horizon_password="*********"'
 
     try:
             opts, args = getopt.getopt(argv,"e:u:p:",["horizon_endpoint=","horizon_user=","horizon_password="])
     except getopt.GetoptError:
-            print 'Usage : vmhopromexp.py --horizon_endpoint="https://horizon_endpoint.fqdn/" --horizon_user="user@vspehere_domain" --horizon_password="*********"'
+            print usage
             sys.exit(2)
     for opt, arg in opts:
         if opt in ("-e","--horizon_endpoint"):
@@ -31,6 +32,10 @@ def main(argv):
             horizon_user=arg
         elif opt in ("-p","--horizon_password"):
             horizon_password=arg
+        else:
+            print usage
+            usage()
+            sys.exit(2)
 
     connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password)
 
