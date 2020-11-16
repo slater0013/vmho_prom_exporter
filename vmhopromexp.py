@@ -37,6 +37,11 @@ def main(argv):
             usage()
             sys.exit(2)
 
+    if(horizon_endpoint == "" or horizon_user == "" or horizon_password == ""):
+        print usage
+        usage()
+        sys.exit(2)
+        
     connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password)
 
 main(sys.argv[1:])
