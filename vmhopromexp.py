@@ -8,12 +8,13 @@
 
 import sys
 import getopt
+import re
 
 def connect_horizon_endpoint(horizon_endpoint,horizon_user,horizon_password):
     print("Connexion au serveur : "+horizon_endpoint+" "+horizon_user+"/"+horizon_password)
 
 def usage():
-    print 'Usage : vmhopromexp.py --horizon_endpoint="https://horizon_endpoint.fqdn/" --horizon_user="user@vspehere_domain" --horizon_password="*********"'
+    print 'Usage : vmhopromexp.py --horizon_endpoint="https://horizon_endpoint.fqdn/rest" --horizon_user="user@vspehere_domain" --horizon_password="*********"'
 
 def main(argv):
 
@@ -28,9 +29,17 @@ def main(argv):
             sys.exit(2)
     for opt, arg in opts:
         if opt in ("-e","--horizon_endpoint"):
-            horizon_endpoint=arg
+            if re.match("http[s]?:\/\/[a-zA-Z0-9-\.]+\.[a-zA-Z]+\/rest",arg):
+                horizon_endpoint=arg
+            else:
+                print("Invalid horizon_endpoint : https://horizon_endpoint.fqdn/rest")
+                sys.exit(2);
         elif opt in ("-u","--horizon_user"):
-            horizon_user=arg
+            if re.match(".*@.*",arg):
+                horizon_user=arg
+            else:
+                print("Invalid horizon_user : login@vspehere_domain")
+                sys.exit(2)
         elif opt in ("-p","--horizon_password"):
             horizon_password=arg
         else:
